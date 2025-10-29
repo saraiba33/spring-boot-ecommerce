@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class CheckoutServiceImpl implements CheckoutService {
@@ -28,8 +29,8 @@ public class CheckoutServiceImpl implements CheckoutService {
         String orderTrackingNumber = generateOrderTrackingNumber();
         order.setOrderTrackingNumber(orderTrackingNumber);
 
-        Set<OrderItem> orderItems = purchase.getOrderItem();
-        orderItems.forEach(item -> order.add(item));
+        Set<OrderItem> orderItems = purchase.getOrder().getOrderItems();
+        orderItems.forEach(order::add);
 
         order.setBillingAddress(purchase.getBillingAddress());
         order.setShippingAddress(purchase.getShippingAddress());
@@ -43,6 +44,6 @@ public class CheckoutServiceImpl implements CheckoutService {
     }
 
     private String generateOrderTrackingNumber() {
-        return null;
+        return UUID.randomUUID().toString();
     }
 }

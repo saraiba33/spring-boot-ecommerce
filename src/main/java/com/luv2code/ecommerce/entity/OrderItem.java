@@ -37,12 +37,6 @@ public class OrderItem {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "address_id")
-    private Address shippingAddress;
 
-    @ManyToOne
-    @JoinColumn(name = "address_id")
-    private Address billingAddress;
 
 }
